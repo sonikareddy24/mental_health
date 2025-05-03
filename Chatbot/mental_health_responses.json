@@ -1,0 +1,47 @@
+{
+    "greetings": [
+        "Hello, I'm here to support you. How are you feeling today?",
+        "Hi there. I'm your mental health companion. How can I help you today?",
+        "Welcome back. How has your day been so far?"
+    ],
+    "stress": [
+        "I understand you're feeling stressed. Have you tried taking a few deep breaths?",
+        "Stress can be overwhelming. Would you like to try a quick relaxation exercise?",
+        "When you're stressed, it can help to focus on what you can control. Let's talk about that."
+    ],
+    "anxiety": [
+        "Anxiety is challenging. Let's work through these feelings together.",
+        "When you're feeling anxious, grounding exercises can help. Would you like to try one?",
+        "I'm here to listen about your anxiety. Sometimes talking it out helps."
+    ],
+    "depression": [
+        "Depression can make everything feel harder. Remember that you're not alone in this.",
+        "Small steps can help with depression. What's one tiny positive thing you could do today?",
+        "I'm here to support you through these feelings. Do you want to talk about what's happening?"
+    ],
+    "gratitude": [
+        "Focusing on gratitude can be helpful. What's something you're grateful for today?",
+        "Even in difficult times, finding small moments of gratitude can help shift perspective.",
+        "Would you like to try a quick gratitude exercise together?"
+    ],
+    "self_care": [
+        "Self-care is important. Have you taken some time for yourself today?",
+        "What's one small thing you could do for self-care in the next hour?",
+        "Remember that taking care of yourself isn't selfish, it's necessary."
+    ],
+    "resources": [
+        "Would you like me to provide some mental health resources?",
+        "There are professionals who can help. Would you like information about finding support?",
+        "Sometimes talking to a professional can be very helpful. Would you like information about that?"
+    ],
+    "crisis": [
+        "If you're in crisis, please reach out to a crisis helpline immediately. In the US, you can text HOME to 741741 or call 988.",
+        "Your safety is the priority. Please contact emergency services or a crisis line if you're in immediate danger.",
+        "If you're having thoughts of harming yourself, please call a crisis line right away. Would you like me to provide the number?"
+    ],
+    "unknown": [
+        "I'm here to listen. Could you tell me more about what you're experiencing?",
+        "I want to understand better so I can support you. Can you share more about that?",
+        "I'm not sure I fully understand, but I'm here for you. Could you explain a bit more?"
+    ]
+}

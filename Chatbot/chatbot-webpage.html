@@ -1,0 +1,208 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python AI Chatbot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .chat-container {
+            width: 90%;
+            max-width: 800px;
+            height: 80vh;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            background-color: white;
+            overflow: hidden;
+        }
+        .chat-header {
+            background-color: #306998;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 1.2em;
+        }
+        .chat-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        .message {
+            margin-bottom: 15px;
+            padding: 10px 15px;
+            border-radius: 20px;
+            max-width: 70%;
+            word-wrap: break-word;
+        }
+        .user-message {
+            background-color: #e1f5fe;
+            margin-left: auto;
+            border-bottom-right-radius: 5px;
+        }
+        .bot-message {
+            background-color: #f1f1f1;
+            margin-right: auto;
+            border-bottom-left-radius: 5px;
+        }
+        .chat-input {
+            display: flex;
+            padding: 15px;
+            border-top: 1px solid #e0e0e0;
+        }
+        .chat-input input {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            outline: none;
+            font-size: 1em;
+        }
+        .chat-input button {
+            margin-left: 10px;
+            padding: 0 20px;
+            background-color: #4b8bbe;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+        .chat-input button:hover {
+            background-color: #306998;
+        }
+        pre {
+            background-color: #f8f8f8;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+            white-space: pre-wrap;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            Python AI Assistant
+        </div>
+        <div class="chat-messages" id="chatMessages">
+            <div class="message bot-message">
+                Hi! I'm your Python AI assistant. How can I help you today?
+            </div>
+        </div>
+        <div class="chat-input">
+            <input type="text" id="userInput" placeholder="Type your message here..." autocomplete="off">
+            <button id="sendButton">Send</button>
+        </div>
+    </div>
+
+    <script>
+        // Sample Python code execution simulation
+        // In a real implementation, this would connect to a backend service
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const chatMessages = document.getElementById('chatMessages');
+            const userInput = document.getElementById('userInput');
+            const sendButton = document.getElementById('sendButton');
+            
+            // Sample responses - in a real implementation, these would come from your Python backend
+            const sampleResponses = {
+                "hello": "Hello! How can I help you with Python today?",
+                "help": "I can help you with Python code, answer questions about programming, or explain concepts.",
+                "python": "Python is a high-level, interpreted programming language known for its readability and versatility."
+            };
+            
+            // For code-related questions, provide code examples
+            const codeResponses = {
+                "function": `Here's how you define a function in Python:\n\n\`\`\`python\ndef greet(name):\n    return f"Hello, {name}!"\n\n# Example usage\nresult = greet("User")\nprint(result)  # Outputs: Hello, User!\n\`\`\``,
+                "loop": `Here's an example of a for loop in Python:\n\n\`\`\`python\n# Printing numbers from 1 to 5\nfor i in range(1, 6):\n    print(i)\n\`\`\``,
+                "list": `Here's how to work with lists in Python:\n\n\`\`\`python\n# Create a list\nfruits = ["apple", "banana", "cherry"]\n\n# Add an item\nfruits.append("orange")\n\n# Access an item\nprint(fruits[0])  # Outputs: apple\n\`\`\``
+            };
+            
+            function addMessage(text, isUser) {
+                const messageDiv = document.createElement('div');
+                messageDiv.classList.add('message');
+                messageDiv.classList.add(isUser ? 'user-message' : 'bot-message');
+                
+                // Check if the message contains code (simplified detection)
+                if (!isUser && text.includes('```')) {
+                    // Split by code blocks
+                    const parts = text.split(/```(?:python)?([\s\S]*?)```/);
+                    for (let i = 0; i < parts.length; i++) {
+                        if (i % 2 === 0) {
+                            // Regular text
+                            if (parts[i].trim()) {
+                                messageDiv.appendChild(document.createTextNode(parts[i]));
+                            }
+                        } else {
+                            // Code block
+                            const pre = document.createElement('pre');
+                            pre.textContent = parts[i].trim();
+                            messageDiv.appendChild(pre);
+                        }
+                    }
+                } else {
+                    messageDiv.textContent = text;
+                }
+                
+                chatMessages.appendChild(messageDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+            
+            function processInput() {
+                const text = userInput.value.trim();
+                if (!text) return;
+                
+                // Add user message
+                addMessage(text, true);
+                userInput.value = '';
+                
+                // Simulate processing (would be a backend call in a real implementation)
+                setTimeout(() => {
+                    let response = "I'm not sure how to respond to that. Try asking about Python concepts or code examples.";
+                    
+                    // Check for code-related keywords
+                    for (const [keyword, codeResponse] of Object.entries(codeResponses)) {
+                        if (text.toLowerCase().includes(keyword)) {
+                            response = codeResponse;
+                            break;
+                        }
+                    }
+                    
+                    // Check for general keywords
+                    for (const [keyword, sampleResponse] of Object.entries(sampleResponses)) {
+                        if (text.toLowerCase().includes(keyword)) {
+                            response = sampleResponse;
+                            break;
+                        }
+                    }
+                    
+                    // Add bot response
+                    addMessage(response, false);
+                }, 1000);
+            }
+            
+            // Event listeners
+            sendButton.addEventListener('click', processInput);
+            userInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    processInput();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
