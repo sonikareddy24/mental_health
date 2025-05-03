@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Add only the new styles for notifications and messaging */
+        .notification-icon {
+            position: relative;
+            cursor: pointer;
+            margin-left: 20px;
+        }
+        
+        .notification-dot {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            width: 10px;
+            height: 10px;
+            background-color: #ff4d4d;
+            border-radius: 50%;
+        }
+        
+        .message-icon {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #4d79ff;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            z-index: 100;
+        }
+        
+        .notification-panel {
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            width: 350px;
+            background-color: #1a1a2e;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            z-index: 100;
+            display: none;
+            max-height: 500px;
+            overflow-y: auto;
+            color: #f5f5f5;
+        }
+        
+        .notification-panel.active {
+            display: block;
+        }
+        
+        .notification-header {
+            padding: 15px;
+            border-bottom: 1px solid #333;
+            font-weight: bold;
+        }
+        
+        .notification-item {
+            padding: 15px;
+            border-bottom: 1px solid #333;
+            display: flex;
+            align-items: center;
+        }
+        
+        .notification-item img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 15px;
+            object-fit: cover;
+        }
+        
+        .notification-content {
+            flex: 1;
+        }
+        
+        .notification-content h4 {
+            margin-bottom: 5px;
+            color: #4d79ff;
+        }
+        
+        .notification-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 8px;
+        }
+        
+        .btn {
+            padding: 5px 15px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        
+        .btn-primary {
+            background-color: #4d79ff;
+            color: white;
+        }
+        
+        .btn-secondary {
+            background-color: #333;
+            color: white;
+        }
+        
+        .message-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        
+        .message-container.active {
+            display: flex;
+        }
+        
+        .message-panel {
+            width: 80%;
+            max-width: 900px;
+            height: 80%;
+            background-color: #1a1a2e;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            color: #f5f5f5;
+        }
+        
+        .message-header {
+            padding: 15px;
+            border-bottom: 1px solid #333;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .message-header-profile {
+            display: flex;
+            align-items: center;
+        }
+        
+        .message-header-profile img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 15px;
+            object-fit: cover;
+        }
+        
+        .close-messages {
+            cursor: pointer;
+            font-size: 20px;
+        }
+        
+        .message-sidebar {
+            width: 30%;
+            border-right: 1px solid #333;
+            overflow-y: auto;
+            height: 100%;
+        }
+        
+        .message-sidebar-item {
+            padding: 15px;
+            border-bottom: 1px solid #333;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        .message-sidebar-item.active {
+            background-color: #2a2a4a;
+        }
+        
+        .message-sidebar-item img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 15px;
+            object-fit: cover;
+        }
+        
+        .message-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .message-chat {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .message-input {
+            padding: 15px;
+            border-top: 1px solid #333;
+            display: flex;
+            align-items: center;
+        }
+        
+        .message-input input {
+            flex: 1;
+            padding: 10px 15px;
+            border-radius: 20px;
+            border: none;
+            background-color: #333;
+            color: white;
+            outline: none;
+        }
+        
+        .emoji-button {
+            margin: 0 15px;
+            cursor: pointer;
+            color: #777;
+            font-size: 20px;
+        }
+        
+        .send-button {
+            background-color: #4d79ff;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        .message-bubble {
+            max-width: 70%;
+            padding: 10px 15px;
+            border-radius: 18px;
+            margin-bottom: 10px;
+            word-wrap: break-word;
+        }
+        
+        .message-received {
+            align-self: flex-start;
+            background-color: #2a2a4a;
+        }
+        
+        .message-sent {
+            align-self: flex-end;
+            background-color: #4d79ff;
+        }
+        
+        .message-time {
+            font-size: 12px;
+            color: #777;
+            margin-top: 5px;
+        }
+        
+        .message-panel-main {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+        
+        .emoji-panel {
+            position: absolute;
+            bottom: 70px;
+            right: 20px;
+            background-color: #333;
+            border-radius: 8px;
+            padding: 10px;
+            display: none;
+            grid-template-columns: repeat(8, 1fr);
+            gap: 5px;
+        }
+        
+        .emoji-panel.active {
+            display: grid;
+        }
+        
+        .emoji {
+            cursor: pointer;
+            font-size: 20px;
+            text-align: center;
+        }
+        /* Updated CSS for header and notification area */
+
+
+.logo {
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.menu {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.menu li {
+    margin: 0 15px;
+    cursor: pointer;
+}
+
+.search-notification-container {
+    display: flex;
+    align-items: center;
+}
+
+.search {
+    margin-right: 10px;
+}
+
+.notification-icon {
+    position: relative;
+    cursor: pointer;
+    margin-left: 10px; /* Reduced margin */
+}
+
+/* Remove any top margin or padding from body */
+body {
+    margin: 0;
+    padding: 0;
+}
+
+/* Hide heart icon */
+#heartIcon {
+    display: none !important; /* Using !important to override any inline styles */
+}
+        
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">BRIDGES</div>
+        <ul class="menu">
+            <li>HOME</li>
+            <li><a href="Stories.html">Stories</a></li>
+            <li>CONTACTS</li>
+            <li>INFO</li>
+        </ul>
+        <div class="search-notification-container">
+            <div class="search">
+                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                </svg>
+            </div>
+            <!-- Notification icon positioned right next to search -->
+            <div class="notification-icon" id="notificationIcon">
+                <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
+                </svg>
+                <div class="notification-dot" id="notificationDot"></div>
+            </div>
+        </div>
+        <!-- Remove or hide the heart icon in HTML as well -->
+        <!-- <div class="notification-icon" id="heartIcon" style="display: none;">...</div> -->
+    </header>
+
+    <!-- slider - keeping original content -->
+    <div class="slider">
+        <!-- list Items -->
+        <div class="list">
+            <div class="item active">
+                <img src="C:\Users\Dell\Desktop\soons\robo2.jpg">
+                <div class="content">
+              
+                    <h2>Slider 01</h2>
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, neque?
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum, ex.
+                    </p>
+                </div>
+            </div>
+            <div class="item">
+                <img src="robo2.jpg">
+                <div class="content">
+                <p>THIS IS</p>
+                    <h2>MONE</h2>
+                    <p>
+                     "Life can be a rollercoaster, but you’re not alone. Whether you need calm or motivation, I’m here to lift you up and remind you—you are strong and never alone!"
+                    </p>
+                </div>
+            </div>
+            <div class="item">
+                <img src="IMG_0785.JPG">
+                <div class="content">
+                    <p>design</p>
+                    <h2>Slider 03</h2>
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, neque?
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum, ex.
+                    </p>
+                </div>
+            </div>
+            <div class="item">
+                <img src="3.JPG">
+                <div class="content">
+                    <p>design</p>
+                    <h2>Slider 04</h2>
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, neque?
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum, ex.
+                    </p>
+                </div>
+            </div>
+            <div class="item">
+                <img src="4.JPG">
+                <div class="content">
+                    <p>design</p>
+                    <h2>Slider 05</h2>
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, neque?
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum, ex.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!-- button arrows -->
+        <div class="arrows">
+            <button id="prev"><</button>
+            <button id="next">></button>
+        </div>
+        <!-- thumbnail -->
+        <div class="thumbnail">
+            <div class="item active">
+                <img src="robo2.jpg">
+                <div class="content">
+                  Zappy
+                </div>
+            </div>
+            <div class="item">
+                <img src="img1.jpg">
+                <div class="content">
+                    Name Slider
+                </div>
+            </div>
+            <div class="item">
+                <img src="3.JPG">
+                <div class="content">
+                    Name Slider
+                </div>
+            </div>
+            <div class="item">
+                <img src="4.JPG">
+                <div class="content">
+                    Name Slider
+                </div>
+            </div>
+            <div class="item">
+                <img src="5.JPG">
+                <div class="content">
+                    Name Slider
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add notification panel -->
+    <div class="notification-panel" id="notificationPanel">
+        <div class="notification-header">Notifications</div>
+        <div class="notification-item">
+            <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="User">
+            <div class="notification-content">
+                <h4>Emma Johnson</h4>
+                <p>You matched with Emma! You both have similar experiences with anxiety management techniques.</p>
+                <div class="notification-actions">
+                    <button class="btn btn-primary connect-btn" data-user="Emma">Connect</button>
+                    <button class="btn btn-secondary">Ignore</button>
+                </div>
+            </div>
+        </div>
+        <div class="notification-item">
+            <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="User">
+            <div class="notification-content">
+                <h4>Michael Chen</h4>
+                <p>You matched with Michael! You both indicated similar approaches to managing stress and mindfulness practices.</p>
+                <div class="notification-actions">
+                    <button class="btn btn-primary connect-btn" data-user="Michael">Connect</button>
+                    <button class="btn btn-secondary">Ignore</button>
+                </div>
+            </div>
+        </div>
+        <div class="notification-item">
+            <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="User">
+            <div class="notification-content">
+                <h4>Sophia Rodriguez</h4>
+                <p>You matched with Sophia! You both shared similar responses about childhood experiences and communication styles.</p>
+                <div class="notification-actions">
+                    <button class="btn btn-primary connect-btn" data-user="Sophia">Connect</button>
+                    <button class="btn btn-secondary">Ignore</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add message icon -->
+    <div class="message-icon" id="messageIcon" style="display: none;">
+        <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="white">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path>
+        </svg>
+    </div>
+
+    <!-- Add message container -->
+    <div class="message-container" id="messageContainer">
+        <div class="message-panel">
+            <div class="message-header">
+                <div class="message-header-profile">
+                    <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="User">
+                    <h3>Emma Johnson</h3>
+                </div>
+                <div class="close-messages" id="closeMessages">×</div>
+            </div>
+            <div class="message-panel-main">
+                <div class="message-sidebar">
+                    <div class="message-sidebar-item active" data-user="Emma" data-img="https://randomuser.me/api/portraits/women/32.jpg">
+                        <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="User">
+                        <div>
+                            <h4>Emma Johnson</h4>
+                            <p>Hey there! Thanks for connecting...</p>
+                        </div>
+                    </div>
+                    <div class="message-sidebar-item" data-user="Michael" data-img="https://randomuser.me/api/portraits/men/45.jpg" style="display: none;">
+                        <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="User">
+                        <div>
+                            <h4>Michael Chen</h4>
+                            <p>Hi! I saw we matched on several...</p>
+                        </div>
+                    </div>
+                    <div class="message-sidebar-item" data-user="Sophia" data-img="https://randomuser.me/api/portraits/women/68.jpg" style="display: none;">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="User">
+                        <div>
+                            <h4>Sophia Rodriguez</h4>
+                            <p>Hello! I'm looking forward to...</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="message-content">
+                    <div class="message-chat" id="messageChat">
+                        <div class="message-bubble message-received">
+                            <div class="message-text">Hey there! Thanks for connecting with me. I saw we had similar responses about anxiety management.</div>
+                            <div class="message-time">10:30 AM</div>
+                        </div>
+                        <div class="message-bubble message-sent">
+                            <div class="message-text">Hi Emma! Yes, I noticed that too. I've been working on mindfulness techniques for my anxiety. What approaches have worked best for you?</div>
+                            <div class="message-time">10:32 AM</div>
+                        </div>
+                        <div class="message-bubble message-received">
+                            <div class="message-text">Mindfulness has been a game-changer for me too! I've been using the 5-4-3-2-1 grounding technique during panic attacks, and it's really helped. Do you use anything similar?</div>
+                            <div class="message-time">10:35 AM</div>
+                        </div>
+                    </div>
+                    <div class="message-input">
+                        <div class="emoji-button" id="emojiButton">😊</div>
+                        <input type="text" placeholder="Type a message..." id="messageInput">
+                        <div class="send-button" id="sendButton">
+                            <svg width="18" height="18" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="white">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="emoji-panel" id="emojiPanel">
+                        <div class="emoji">😊</div>
+                        <div class="emoji">😂</div>
+                        <div class="emoji">❤️</div>
+                        <div class="emoji">👍</div>
+                        <div class="emoji">😍</div>
+                        <div class="emoji">🙏</div>
+                        <div class="emoji">😭</div>
+                        <div class="emoji">🤔</div>
+                        <div class="emoji">🥰</div>
+                        <div class="emoji">🤗</div>
+                        <div class="emoji">✨</div>
+                        <div class="emoji">🎉</div>
+                        <div class="emoji">👏</div>
+                        <div class="emoji">💪</div>
+                        <div class="emoji">🌈</div>
+                        <div class="emoji">🙌</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Notification and messaging functionality
+        const notificationIcon = document.getElementById('notificationIcon');
+        const notificationPanel = document.getElementById('notificationPanel');
+        const notificationDot = document.getElementById('notificationDot');
+        const heartIcon = document.getElementById('heartIcon');
+        const messageIcon = document.getElementById('messageIcon');
+        const messageContainer = document.getElementById('messageContainer');
+        const closeMessages = document.getElementById('closeMessages');
+        const connectButtons = document.querySelectorAll('.connect-btn');
+        const messageInput = document.getElementById('messageInput');
+        const sendButton = document.getElementById('sendButton');
+        const messageChat = document.getElementById('messageChat');
+        const emojiButton = document.getElementById('emojiButton');
+        const emojiPanel = document.getElementById('emojiPanel');
+        const emojis = document.querySelectorAll('.emoji');
+        const sidebarItems = document.querySelectorAll('.message-sidebar-item');
+        const messageHeaderProfile = document.querySelector('.message-header-profile');
+
+        // Show notification dot initially
+        notificationDot.style.display = 'block';
+
+        // Toggle notification panel
+        notificationIcon.addEventListener('click', () => {
+            notificationPanel.classList.toggle('active');
+            notificationDot.style.display = 'none';
+            setTimeout(() => {
+                heartIcon.style.display = 'block';
+            }, 1000);
+        });
+
+        // Close notification panel when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!notificationIcon.contains(e.target) && !notificationPanel.contains(e.target)) {
+                notificationPanel.classList.remove('active');
+            }
+        });
+
+        // Connect button functionality
+        connectButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const username = button.getAttribute('data-user');
+                button.textContent = 'Connected';
+                button.disabled = true;
+                button.style.backgroundColor = '#555';
+                
+                // Show message icon
+                messageIcon.style.display = 'flex';
+                
+                // Show the user in the message sidebar
+                const sidebarItem = document.querySelector(`.message-sidebar-item[data-user="${username}"]`);
+                if (sidebarItem) {
+                    sidebarItem.style.display = 'flex';
+                }
+                
+                // Close notification panel
+                notificationPanel.classList.remove('active');
+            });
+        });
+
+        // Open message container
+        messageIcon.addEventListener('click', () => {
+            messageContainer.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+
+        // Close message container
+        closeMessages.addEventListener('click', () => {
+            messageContainer.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+
+        // Send message functionality
+        sendButton.addEventListener('click', sendMessage);
+        messageInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        function sendMessage() {
+            const messageText = messageInput.value.trim();
+            if (messageText === '') return;
+
+            const now = new Date();
+            const hours = now.getHours() % 12 || 12;
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const ampm = now.getHours() >= 12 ? 'PM' : 'AM';
+            const timeString = `${hours}:${minutes} ${ampm}`;
+
+            const messageBubble = document.createElement('div');
+            messageBubble.className = 'message-bubble message-sent';
+            messageBubble.innerHTML = `
+                <div class="message-text">${messageText}</div>
+                <div class="message-time">${timeString}</div>
+            `;
+
+            messageChat.appendChild(messageBubble);
+            messageInput.value = '';
+            messageChat.scrollTop = messageChat.scrollHeight;
+
+            // Simulate response after a delay
+            setTimeout(() => {
+                const responses = [
+                    "That's a great point! I've experienced something similar.",
+                    "I understand what you mean. It's been a challenge for me too.",
+                    "Thanks for sharing that. It helps to know I'm not alone.",
+                    "I appreciate your perspective. Have you tried any other approaches?",
+                    "That's exactly how I've been feeling too!"
+                ];
+                
+                const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+                
+                const responseMessage = document.createElement('div');
+                responseMessage.className = 'message-bubble message-received';
+                responseMessage.innerHTML = `
+                    <div class="message-text">${randomResponse}</div>
+                    <div class="message-time">${timeString}</div>
+                `;
+                
+                messageChat.appendChild(responseMessage);
+                messageChat.scrollTop = messageChat.scrollHeight;
+            }, 1500);
+        }
+
+        // Toggle emoji panel
+        emojiButton.addEventListener('click', () => {
+            emojiPanel.classList.toggle('active');
+        });
+
+        // Add emoji to message input
+        emojis.forEach(emoji => {
+            emoji.addEventListener('click', () => {
+                messageInput.value += emoji.textContent;
+                emojiPanel.classList.remove('active');
+                messageInput.focus();
+            });
+        });
+
+        // Close emoji panel when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!emojiButton.contains(e.target) && !emojiPanel.contains(e.target)) {
+                emojiPanel.classList.remove('active');
+            }
+        });
+
+        // Switch between conversation in sidebar
+        sidebarItems.forEach(item => {
+            item.addEventListener('click', () => {
+                // Update active sidebar item
+                sidebarItems.forEach(i => i.classList.remove('active'));
+                item.classList.add('active');
+                
+                // Update header profile
+                const username = item.getAttribute('data-user');
+                const userImg = item.getAttribute('data-img');
+                
+                messageHeaderProfile.innerHTML = `
+                    <img src="${userImg}" alt="${username}">
+                    <h3>${username}</h3>
+                `;
+                
+                // Clear chat and load appropriate conversation
+                messageChat.innerHTML = '';
+                
+                if (username === 'Emma') {
+                    messageChat.innerHTML = `
+                        <div class="message-bubble message-received">
+                            <div class="message-text">Hey there! Thanks for connecting with me. I saw we had similar responses about anxiety management.</div>
+                            <div class="message-time">10:30 AM</div>
+                        </div>
+                        <div class="message-bubble message-sent">
+                            <div class="message-text">Hi Emma! Yes, I noticed that too. I've been working on mindfulness techniques for my anxiety. What approaches have worked best for you?</div>
+                            <div class="message-time">10:32 AM</div>
+                        </div>
+                        <div class="message-bubble message-received">
+                            <div class="message-text">Mindfulness has been a game-changer for me too! I've been using the 5-4-3-2-1 grounding technique during panic attacks, and it's really helped. Do you use anything similar?</div>
+                            <div class="message-time">10:35 AM</div>
+                        </div>
+                    `;
+                } else if (username === 'Michael') {
+                    messageChat.innerHTML = `
+                        <div class="message-bubble message-received">
+                            <div class="message-text">Hi! I saw we matched on several responses about mindfulness and stress management. Great to connect with you!</div>
+                            <div class="message-time">11:15 AM</div>
+                        </div>
+                        <div class="message-bubble message-sent">
+                            <div class="message-text">Hey Michael! Yes, I've been practicing mindfulness for about a year now. It's made a big difference. What's your experience been like?</div>
+                            <div class="message-time">11:18 AM</div>
+                        </div>
+                        <div class="message-bubble message-received">
+                            <div class="message-text">I started about 6 months ago after a particularly stressful period. I've been using guided meditations, but still finding it challenging to maintain consistency. Any tips?</div>
+                            <div class="message-time">11:22 AM</div>
+                        </div>
+                    `;
+                } else if (username === 'Sophia') {
+                    messageChat.innerHTML = `
+                        <div class="message-bubble message-received">
+                            <div class="message-text">Hello! I'm looking forward to connecting. I noticed we had similar responses about childhood experiences and how they shaped our communication patterns.</div>
+                            <div class="message-time">9:45 AM</div>
+                        </div>
+                        <div class="message-bubble message-sent">
+                            <div class="message-text">Hi Sophia! Yes, I found that interesting too. It's nice to meet someone who understands how those early experiences can affect us.</div>
+                            <div class="message-time">9:48 AM</div>
+                        </div>
+                        <div class="message-bubble message-received">
+                            <div class="message-text">Absolutely! I've been working on recognizing those patterns in my daily interactions. It's been eye-opening to see how much those early experiences influence how I communicate with others now. Have you found any particular strategies helpful?</div>
+                            <div class="message-time">9:52 AM</div>
+                        </div>
+                    `;
+                }
+                
+                messageChat.scrollTop = messageChat.scrollHeight;
+            });
+        });
+    </script>
+
+</body>
+</html>
