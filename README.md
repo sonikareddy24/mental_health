@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 # Bridges — A Space to Feel Heard
 
 Bridges is a multi-bot, AI-driven mental health platform. It provides a non-judgmental, entirely private space where users can converse with carefully calibrated empathetic AI companions. 
@@ -69,3 +70,13 @@ python3 -m http.server 8000
 =======
 # mental_health
 >>>>>>> c7381777e03251b92d8c26285af3b05e0c5b1142
+=======
+
+
+# Mental Health Support Platform
+
+A platform providing:
+- AI chatbot support
+- Peer-to-peer community stories
+- Mental health resources
+>>>>>>> f540d0da93c8ecfd25ef6b446be1ba3f4014723e
