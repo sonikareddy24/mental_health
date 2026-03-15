@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat | Bridges</title>
+    <link rel="stylesheet" href="static/css/style.css">
+    <link rel="stylesheet" href="static/css/chat.css">
+    <!-- Marked.js for markdown rendering -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body class="page-exit">
+    <!-- Shared Navigation Bar (Condensed) -->
+    <nav class="global-nav">
+        <a href="index.html" class="nav-brand">
+            <div class="nav-brand-logo">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--color-primary)"><path d="M4 22V10c0-4.4 3.6-8 8-8s8 3.6 8 8v12"/><path d="M22 22H2"/><path d="M12 2v6"/><path d="M12 14v8"/></svg>
+                Bridges
+            </div>
+        </a>
+        <div class="nav-actions">
+            <!-- Crisis mini banner in header for chat -->
+            <span style="font-size: 12px; color: var(--color-text-muted); margin-right: 12px;">In crisis? <a href="tel:9152987821" style="color: var(--color-secondary);">Call 9152987821</a></span>
+            <a href="index.html" class="btn-ghost" style="padding: 6px 16px;">End Chat</a>
+        </div>
+    </nav>
+
+    <div class="chat-page-wrapper">
+        <!-- Sidebar -->
+        <aside class="chat-sidebar">
+            <div class="bot-profile" id="sidebarProfile">
+                <img src="" alt="Bot Avatar" class="bot-profile-img" id="sidebarAvatar">
+                <h2 id="sidebarName">Companion</h2>
+                <div class="bot-specialties" id="sidebarSpecialties">
+                    <!-- Badges injected via JS -->
+                </div>
+                <p id="sidebarDesc">Loading description...</p>
+            </div>
+
+            <div class="session-mood-check">
+                <p>How are you feeling right now?</p>
+                <div class="mood-buttons" id="moodButtons">
+                    <button class="mood-btn" data-mood="sad">😔</button>
+                    <button class="mood-btn" data-mood="worried">😟</button>
+                    <button class="mood-btn" data-mood="neutral">😐</button>
+                    <button class="mood-btn" data-mood="fine">🙂</button>
+                    <button class="mood-btn" data-mood="good">😊</button>
+                </div>
+            </div>
+
+            <div class="tips-accordion">
+                <h4>Tips for this chat</h4>
+                <ul>
+                    <li>Take your time answering.</li>
+                    <li>Feel free to type short or long responses.</li>
+                    <li>Your chat history stays private to this browser.</li>
+                </ul>
+            </div>
+            
+            <button id="clearHistoryBtn" class="btn-ghost" style="margin-top: auto; font-size: 13px;">Clear Chat History</button>
+        </aside>
+
+        <!-- Main Chat Area -->
+        <main class="chat-main">
+            <header class="chat-header">
+                <div class="chat-header-info">
+                    <img src="" alt="Avatar" class="header-avatar" id="headerAvatar">
+                    <div class="header-meta">
+                        <h3 id="headerName">Companion</h3>
+                        <span class="header-status">Online</span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="chat-window" id="chatWindow" aria-live="polite" aria-atomic="false">
+                <!-- Messages injected here -->
+                
+                <!-- Typing Indicator (appended at the bottom via JS when needed) -->
+                <div class="typing-indicator" id="typingIndicator">
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                </div>
+            </div>
+
+            <div class="chat-input-area">
+                <div class="quick-replies" id="quickReplies">
+                    <!-- Injected via JS -->
+                </div>
+                <div class="input-wrapper">
+                    <textarea id="chatInput" rows="1" placeholder="Type your message..." autocomplete="off"></textarea>
+                    <span class="char-counter" id="charCounter">0 / 500</span>
+                    <button id="sendBtn" disabled>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="static/js/main.js"></script>
+    <script src="static/js/chat.js"></script>
+</body>
+</html>

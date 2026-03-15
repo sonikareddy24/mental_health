@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community Stories | Bridges</title>
+    <link rel="stylesheet" href="static/css/style.css">
+    <link rel="stylesheet" href="static/css/stories.css">
+</head>
+<body class="page-exit">
+    <!-- Shared Navigation -->
+    <nav class="global-nav">
+        <a href="index.html" class="nav-brand">
+            <div class="nav-brand-logo">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--color-primary)"><path d="M4 22V10c0-4.4 3.6-8 8-8s8 3.6 8 8v12"/><path d="M22 22H2"/><path d="M12 2v6"/><path d="M12 14v8"/></svg>
+                Bridges
+            </div>
+            <span class="nav-brand-tagline">A space to feel heard</span>
+        </a>
+        
+        <button class="mobile-menu-btn">
+            <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        </button>
+
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#companions">Our Bots</a></li>
+            <li><a href="stories.html" class="active">Community</a></li>
+            <li><a href="about.html">Our Bridges</a></li>
+        </ul>
+        
+        <div class="nav-actions">
+            <a href="index.html#companions" class="btn-secondary">Start Talking</a>
+        </div>
+    </nav>
+
+    <div class="stories-page">
+        <header class="stories-header">
+            <h1 class="section-heading" style="font-size: var(--font-size-3xl);">Shared Silence, Shared Strength</h1>
+            <p style="font-size: var(--font-size-lg);">Read experiences from others who have walked similar paths. You are not alone in how you feel.</p>
+        </header>
+
+        <div class="stories-layout">
+            <!-- Left Sidebar (Filters) -->
+            <aside class="filters-sidebar">
+                <h3>Filters</h3>
+                <input type="text" id="searchInput" class="search-input" placeholder="Search stories...">
+                
+                <div class="filter-group">
+                    <label class="filter-label"><input type="checkbox" value="Anxiety" class="tag-filter"> Anxiety</label>
+                    <label class="filter-label"><input type="checkbox" value="Depression" class="tag-filter"> Depression</label>
+                    <label class="filter-label"><input type="checkbox" value="Grief" class="tag-filter"> Grief</label>
+                    <label class="filter-label"><input type="checkbox" value="Stress" class="tag-filter"> Stress/Burnout</label>
+                    <label class="filter-label"><input type="checkbox" value="Loneliness" class="tag-filter"> Loneliness</label>
+                </div>
+
+                <div class="filter-group">
+                    <h3 style="font-size: 13px; color: var(--color-text-muted); border:none; margin-bottom:8px;">Bot Mentions</h3>
+                    <label class="filter-label"><input type="checkbox" value="nova" class="bot-filter"> Nova</label>
+                    <label class="filter-label"><input type="checkbox" value="mone" class="bot-filter"> Mone</label>
+                    <label class="filter-label"><input type="checkbox" value="atlas" class="bot-filter"> Atlas</label>
+                    <label class="filter-label"><input type="checkbox" value="sol" class="bot-filter"> Sol</label>
+                    <label class="filter-label"><input type="checkbox" value="luna" class="bot-filter"> Luna</label>
+                </div>
+
+                <button id="clearFiltersBtn" class="clear-filters">Clear all filters</button>
+            </aside>
+
+            <!-- Center (Feed & Submission) -->
+            <main class="stories-feed-col">
+                <!-- Submit Card -->
+                <div class="submit-story-card">
+                    <h3>Share your experience</h3>
+                    <form id="storyForm">
+                        <div class="form-group">
+                            <label>Title</label>
+                            <input type="text" id="postTitle" class="form-input" placeholder="Keep it brief and descriptive" required maxlength="80">
+                        </div>
+                        <div class="form-group">
+                            <label>Your Story</label>
+                            <textarea id="postBody" class="form-textarea" rows="4" placeholder="What's been on your mind lately? (This space is safe and anonymous)" required maxlength="800"></textarea>
+                            <span class="char-limit" id="postCharCount">0 / 800</span>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group" style="margin:0;">
+                                <label style="display:inline-block; margin-right:8px;">Tags (Select up to 3)</label>
+                                <div class="tag-selector" id="postTags">
+                                    <span class="tag-chip" data-val="Anxiety">Anxiety</span>
+                                    <span class="tag-chip" data-val="Depression">Depression</span>
+                                    <span class="tag-chip" data-val="Grief">Grief</span>
+                                    <span class="tag-chip" data-val="Stress">Stress</span>
+                                    <span class="tag-chip" data-val="Loneliness">Loneliness</span>
+                                </div>
+                            </div>
+                            <button type="submit" id="submitStoryBtn" class="btn-primary">Post Anonymously</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Feed Grid -->
+                <div class="stories-grid" id="storiesGrid">
+                    <!-- Dynamic Content Loaded by JS -->
+                    <div class="empty-state">Loading stories...</div>
+                </div>
+            </main>
+
+            <!-- Right Sidebar -->
+            <aside class="right-sidebar">
+                <div class="quote-card">
+                    <div class="quote-content" id="dailyQuote">
+                        <span>"Healing doesn't mean the damage never existed. It means the damage no longer controls our lives."</span>
+                    </div>
+                </div>
+
+                <div class="resource-list-card">
+                    <h4>Helpful Resources</h4>
+                    <div class="resource-item">
+                        <div class="resource-info">
+                            <h5>Mindfulness Guide</h5>
+                            <p>5-min breathing exercises</p>
+                        </div>
+                        <a href="#" class="resource-link">↗</a>
+                    </div>
+                    <div class="resource-item">
+                        <div class="resource-info">
+                            <h5>Grounding Techniques</h5>
+                            <p>The 5-4-3-2-1 method</p>
+                        </div>
+                        <a href="#" class="resource-link">↗</a>
+                    </div>
+                    <div class="resource-item">
+                        <div class="resource-info">
+                            <h5>Crisis Lifelines</h5>
+                            <p>Available 24/7</p>
+                        </div>
+                        <a href="#footer" class="resource-link">↓</a>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <!-- Global Footer -->
+    <div id="footer">
+        <div class="footer-crisis-banner">
+            If you're in crisis, please reach out right now. 
+            <a href="tel:9152987821">iCall: 9152987821</a> | 
+            <a href="tel:18602662345">Vandrevala: 1860-2662-345</a>
+        </div>
+        <footer class="global-footer">
+            <div class="footer-bottom">
+                <p>&copy; 2026 Bridges. Made with care ♥. | This is a companion app, not a substitute for professional mental health care.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="static/js/main.js"></script>
+    <script src="static/js/stories.js"></script>
+</body>
+</html>

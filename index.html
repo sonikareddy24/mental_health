@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bridges | A Space To Feel Heard</title>
+    <link rel="stylesheet" href="static/css/style.css">
+    <link rel="stylesheet" href="static/css/index.css">
+    <!-- Font Awesome for SVGs/Icons but we can use literal SVGs where needed -->
+</head>
+<body class="page-exit">
+    <!-- Page Loader -->
+    <div class="page-loader">
+        <div class="loader-pulse"></div>
+    </div>
+
+    <!-- Shared Navigation Bar -->
+    <nav class="global-nav">
+        <a href="index.html" class="nav-brand">
+            <div class="nav-brand-logo">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--color-primary)"><path d="M4 22V10c0-4.4 3.6-8 8-8s8 3.6 8 8v12"/><path d="M22 22H2"/><path d="M12 2v6"/><path d="M12 14v8"/></svg>
+                Bridges
+            </div>
+            <span class="nav-brand-tagline">A space to feel heard</span>
+        </a>
+        
+        <button class="mobile-menu-btn">
+            <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        </button>
+
+        <ul class="nav-links">
+            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="index.html#companions">Our Bots</a></li>
+            <li><a href="stories.html">Community</a></li>
+            <li><a href="about.html">Our Bridges</a></li>
+        </ul>
+        
+        <div class="nav-actions">
+            <a href="index.html#companions" class="btn-secondary">Start Talking</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <h1 class="hero-headline">You don't have to carry it alone.</h1>
+        <p class="hero-subhead">Choose a companion. Start a conversation. Take a breath.</p>
+        
+        <div class="hero-ctas">
+            <a href="#companions" class="btn-primary">Meet Your Companions</a>
+            <a href="stories.html" class="btn-ghost">Read Community Stories</a>
+        </div>
+
+        <div class="trust-badges">
+            <div class="trust-badge-item">
+                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0110 0v4"></path></svg>
+                Private & Anonymous
+            </div>
+            <div class="trust-badge-item">
+                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v6l4 2"></path></svg>
+                Available 24/7
+            </div>
+            <div class="trust-badge-item">
+                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                No Judgment
+            </div>
+        </div>
+    </section>
+
+    <!-- Bot Slider Section (Companions) -->
+    <section id="companions" class="slider-container">
+        <div class="slider-track">
+            
+            <!-- Bot 1: Nova -->
+            <div class="bot-card" data-bot="nova" data-color="var(--bot-nova)">
+                <div class="bot-avatar-container">
+                    <img src="static/assets/avatars/nova_avatar_1773572533263.png" alt="Nova Avatar" class="bot-avatar-img">
+                </div>
+                <div class="bot-card-header">
+                    <h2 class="bot-name" style="color: var(--bot-nova)">Nova <span class="bot-mood-emoji">✨</span></h2>
+                    <p class="bot-desc">Your upbeat, energetic cheerleader</p>
+                </div>
+                <div class="bot-specialties">
+                    <span class="badge">Motivation</span>
+                    <span class="badge">Energy</span>
+                    <span class="badge">Positivity</span>
+                </div>
+                <div class="mood-meter">
+                    <div class="mood-meter-title">Best when you're feeling:</div>
+                    <span class="badge" style="border: 1px solid var(--bot-nova)">Low energy</span>
+                    <span class="badge" style="border: 1px solid var(--bot-nova)">Unmotivated</span>
+                    <span class="badge" style="border: 1px solid var(--bot-nova)">Need a push</span>
+                </div>
+                <a href="chat.html?bot=nova" class="bot-chat-btn" style="background-color: var(--bot-nova)">Chat with Nova</a>
+            </div>
+
+            <!-- Bot 2: Mone -->
+            <div class="bot-card" data-bot="mone" data-color="var(--bot-mone)">
+                <div class="bot-avatar-container">
+                    <img src="static/assets/avatars/mone_avatar_1773572549179.png" alt="Mone Avatar" class="bot-avatar-img">
+                </div>
+                <div class="bot-card-header">
+                    <h2 class="bot-name" style="color: var(--bot-mone)">Mone <span class="bot-mood-emoji">💞</span></h2>
+                    <p class="bot-desc">Your comforting, reassuring presence</p>
+                </div>
+                <div class="bot-specialties">
+                    <span class="badge">Comfort</span>
+                    <span class="badge">Reassurance</span>
+                    <span class="badge">Validation</span>
+                </div>
+                <div class="mood-meter">
+                    <div class="mood-meter-title">Best when you're feeling:</div>
+                    <span class="badge" style="border: 1px solid var(--bot-mone)">Vulnerable</span>
+                    <span class="badge" style="border: 1px solid var(--bot-mone)">Overwhelmed</span>
+                    <span class="badge" style="border: 1px solid var(--bot-mone)">Needing a hug</span>
+                </div>
+                <a href="chat.html?bot=mone" class="bot-chat-btn" style="background-color: var(--bot-mone)">Chat with Mone</a>
+            </div>
+
+            <!-- Bot 3: Atlas -->
+            <div class="bot-card" data-bot="atlas" data-color="var(--bot-atlas)">
+                <div class="bot-avatar-container">
+                    <img src="static/assets/avatars/atlas_avatar_1773572567223.png" alt="Atlas Avatar" class="bot-avatar-img">
+                </div>
+                <div class="bot-card-header">
+                    <h2 class="bot-name" style="color: var(--bot-atlas)">Atlas <span class="bot-mood-emoji">🤝</span></h2>
+                    <p class="bot-desc">A deep listener for heavy days</p>
+                </div>
+                <div class="bot-specialties">
+                    <span class="badge">No toxic positivity</span>
+                    <span class="badge">Grounded</span>
+                    <span class="badge">Holding space</span>
+                </div>
+                <div class="mood-meter">
+                    <div class="mood-meter-title">Best when you're feeling:</div>
+                    <span class="badge" style="border: 1px solid var(--bot-atlas)">Deeply sad</span>
+                    <span class="badge" style="border: 1px solid var(--bot-atlas)">Grieving</span>
+                    <span class="badge" style="border: 1px solid var(--bot-atlas)">Tired of platitudes</span>
+                </div>
+                <a href="chat.html?bot=atlas" class="bot-chat-btn" style="background-color: var(--bot-atlas)">Chat with Atlas</a>
+            </div>
+
+            <!-- Bot 4: Sol -->
+            <div class="bot-card" data-bot="sol" data-color="var(--bot-sol)">
+                <div class="bot-avatar-container">
+                    <img src="static/assets/avatars/sol_avatar_1773572582068.png" alt="Sol Avatar" class="bot-avatar-img">
+                </div>
+                <div class="bot-card-header">
+                    <h2 class="bot-name" style="color: var(--bot-sol)">Sol <span class="bot-mood-emoji">🌞</span></h2>
+                    <p class="bot-desc">Warm stress relief and practical grounding</p>
+                </div>
+                <div class="bot-specialties">
+                    <span class="badge">Stress Relief</span>
+                    <span class="badge">Grounding</span>
+                    <span class="badge">Perspective</span>
+                </div>
+                <div class="mood-meter">
+                    <div class="mood-meter-title">Best when you're feeling:</div>
+                    <span class="badge" style="border: 1px solid var(--bot-sol)">Stressed</span>
+                    <span class="badge" style="border: 1px solid var(--bot-sol)">Tense</span>
+                    <span class="badge" style="border: 1px solid var(--bot-sol)">Stuck</span>
+                </div>
+                <a href="chat.html?bot=sol" class="bot-chat-btn" style="background-color: var(--bot-sol)">Chat with Sol</a>
+            </div>
+
+            <!-- Bot 5: Luna -->
+            <div class="bot-card" data-bot="luna" data-color="var(--bot-luna)">
+                <div class="bot-avatar-container">
+                    <img src="static/assets/avatars/luna_avatar_1773572598725.png" alt="Luna Avatar" class="bot-avatar-img">
+                </div>
+                <div class="bot-card-header">
+                    <h2 class="bot-name" style="color: var(--bot-luna)">Luna <span class="bot-mood-emoji">🌙</span></h2>
+                    <p class="bot-desc">Serene companion for anxiety and calm</p>
+                </div>
+                <div class="bot-specialties">
+                    <span class="badge">Breathing</span>
+                    <span class="badge">Anxiety Relief</span>
+                    <span class="badge">Sleep</span>
+                </div>
+                <div class="mood-meter">
+                    <div class="mood-meter-title">Best when you're feeling:</div>
+                    <span class="badge" style="border: 1px solid var(--bot-luna)">Anxious</span>
+                    <span class="badge" style="border: 1px solid var(--bot-luna)">Racing thoughts</span>
+                    <span class="badge" style="border: 1px solid var(--bot-luna)">Panicked</span>
+                </div>
+                <a href="chat.html?bot=luna" class="bot-chat-btn" style="background-color: var(--bot-luna)">Chat with Luna</a>
+            </div>
+
+        </div>
+    </section>
+    
+    <div class="slider-indicators" style="justify-content: center;">
+        <div class="indicator-dot"></div>
+        <div class="indicator-dot"></div>
+        <div class="indicator-dot"></div>
+        <div class="indicator-dot"></div>
+        <div class="indicator-dot"></div>
+    </div>
+
+    <!-- How It Works -->
+    <section class="how-it-works">
+        <h2 class="section-heading mb-6">How It Works</h2>
+        <div class="how-steps-container">
+            <div class="how-step">
+                <div class="how-icon">🤖</div>
+                <h3>Pick your companion</h3>
+                <p>Scroll through our 5 bots. Choose the one whose approach matches what you need today.</p>
+            </div>
+            <div class="how-step">
+                <div class="how-icon">💬</div>
+                <h3>Start the conversation</h3>
+                <p>Text your thoughts privately. They are here 24/7 and ready to listen without any judgment.</p>
+            </div>
+            <div class="how-step">
+                <div class="how-icon">🙌</div>
+                <h3>Feel a little lighter</h3>
+                <p>Use our tools, coping mechanisms, and safe space to process and exhale.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonial Marquee -->
+    <section class="testimonial-marquee-wrapper" style="background: var(--color-bg-deep); padding-bottom: var(--space-8);">
+        <h2 class="section-heading" style="text-align: center; margin-bottom: var(--space-6);">Hear from our community</h2>
+        <div class="testimonial-marquee">
+            <div class="marquee-track">
+                <!-- Duplicate cards to create infinite loop effect -->
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p>"Luna helped me breathe through a panic attack when I had no one to call. So grateful."</p>
+                    <span class="badge" style="background: rgba(196,168,232,0.2); color: var(--bot-luna)">Luna</span>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p>"Atlas just... gets it. No toxic positivity. He let me be sad and it actually helped."</p>
+                    <span class="badge" style="background: rgba(122,184,232,0.2); color: var(--bot-atlas)">Atlas</span>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">★★★★☆</div>
+                    <p>"I love Nova's energy. Opened the app feeling drained and her responses gave me the push to shower."</p>
+                    <span class="badge" style="background: rgba(245,201,122,0.2); color: var(--bot-nova)">Nova</span>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p>"Mone feels unbelievably reassuring. Sometimes you just need to hear 'You're okay, you've got this'."</p>
+                    <span class="badge" style="background: rgba(244,168,184,0.2); color: var(--bot-mone)">Mone</span>
+                </div>
+                <!-- Duplicate set -->
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p>"Luna helped me breathe through a panic attack when I had no one to call. So grateful."</p>
+                    <span class="badge" style="background: rgba(196,168,232,0.2); color: var(--bot-luna)">Luna</span>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p>"Atlas just... gets it. No toxic positivity. He let me be sad and it actually helped."</p>
+                    <span class="badge" style="background: rgba(122,184,232,0.2); color: var(--bot-atlas)">Atlas</span>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">★★★★☆</div>
+                    <p>"I love Nova's energy. Opened the app feeling drained and her responses gave me the push to shower."</p>
+                    <span class="badge" style="background: rgba(245,201,122,0.2); color: var(--bot-nova)">Nova</span>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p>"Mone feels unbelievably reassuring. Sometimes you just need to hear 'You're okay, you've got this'."</p>
+                    <span class="badge" style="background: rgba(244,168,184,0.2); color: var(--bot-mone)">Mone</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Global Resource Banner & Footer -->
+    <div class="footer-crisis-banner">
+        If you're in crisis, please reach out right now. 
+        <a href="tel:9152987821">iCall: 9152987821</a> | 
+        <a href="tel:18602662345">Vandrevala: 1860-2662-345</a>
+    </div>
+
+    <footer class="global-footer">
+        <div class="footer-content">
+            <div class="footer-col">
+                <div class="nav-brand-logo" style="margin-bottom: 12px;">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--color-primary)"><path d="M4 22V10c0-4.4 3.6-8 8-8s8 3.6 8 8v12"/><path d="M22 22H2"/><path d="M12 2v6"/><path d="M12 14v8"/></svg>
+                    Bridges
+                </div>
+                <p>A safe, judgment-free companion app.<br>Built on the belief that holding space matters.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#companions">Our Bots</a></li>
+                    <li><a href="stories.html">Community</a></li>
+                    <li><a href="about.html">Our Bridges</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Support Resources</h4>
+                <ul>
+                    <li><a href="https://icallhelpline.org/" target="_blank">iCall Helpline</a></li>
+                    <li><a href="https://www.vandrevalafoundation.com/" target="_blank">Vandrevala Foundation</a></li>
+                    <li><a href="https://nimhans.ac.in/" target="_blank">NIMHANS</a></li>
+                    <li><a href="https://snehi.org/" target="_blank">Snehi</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Bridges. Made with care ♥. | This is a companion app, not a substitute for professional mental health care.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="static/js/main.js"></script>
+    <script src="static/js/slider.js"></script>
+    <script>
+        // Set loader hide logic here or in main.js
+        window.onload = () => {
+            document.querySelector('.page-loader').classList.add('hide');
+        }
+    </script>
+</body>
+</html>

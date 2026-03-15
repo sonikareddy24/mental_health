@@ -1,0 +1,32 @@
+[
+  {
+    "id": "1",
+    "author": "QuietSoul",
+    "title": "Finding breath in the chaos",
+    "body": "Last week was one of the hardest I have had in years. I felt like I was drowning in expectations. Luna really helped me just take it one breath at a time. If you are feeling overwhelmed right now, please know it gets better.",
+    "tags": ["Anxiety", "Stress"],
+    "bot": "luna",
+    "helpful": 12,
+    "created_at": "2026-03-10T10:00:00Z"
+  },
+  {
+    "id": "2",
+    "author": "AtlasFriend",
+    "title": "Grief isn't a straight line",
+    "body": "It's been six months since I lost my brother. People keep telling me to 'move on', but Atlas let me just sit with the sadness. No platitudes, just space. Thank you for this app.",
+    "tags": ["Grief"],
+    "bot": "atlas",
+    "helpful": 45,
+    "created_at": "2026-03-12T15:30:00Z"
+  },
+  {
+    "id": "3",
+    "author": "Anonymous",
+    "title": "Mone's warmth",
+    "body": "I have always been my own harshest critic. Talking to Mone felt like finally getting a hug from someone who actually understands. Small steps every day.",
+    "tags": ["Depression", "Loneliness"],
+    "bot": "mone",
+    "helpful": 28,
+    "created_at": "2026-03-14T09:15:00Z"
+  }
+]
